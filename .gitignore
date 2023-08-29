@@ -1,0 +1,22 @@
+# Editor directories and files
+.idea
+out
+
+*.iml
+
+.classpath
+.project
+.settings/
+
+# Archivos y directorios generados por Maven
+target/
+/bin/
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de otros editores
+*.swp
+*.swo
+*~
