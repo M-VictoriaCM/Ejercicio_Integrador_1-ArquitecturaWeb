@@ -4,6 +4,7 @@ import Modelo.Factura;
 import connection.ConnectionFactory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -29,6 +30,15 @@ public class FacturaDAOImplMySQL implements FacturaDao{
     }
 
     public void insertar(Factura factura) {
+        try {
+            String sql ="INSERT INTO Factura(idCliente) VALUE (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, factura.getIdCliente());
 
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

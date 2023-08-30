@@ -4,6 +4,7 @@ import Modelo.Producto;
 import connection.ConnectionFactory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -29,6 +30,16 @@ public class ProductoDAOImplMySQL implements ProductoDao{
     }
 
     public void insertar(Producto producto) {
+        try {
+            String sql ="INSERT INTO Producto(nombre,valor) VALUE (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, producto.getNombre());
+            preparedStatement.setFloat(2, producto.getValor());
 
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,9 +2,9 @@ package Modelo;
 
 public class Factura {
     private int idFactura;
-    private Cliente idCliente;
+    private int idCliente;
 
-    public Factura() {
+    public Factura(int idFactura, int idCliente) {
         this.idFactura = idFactura;
         this.idCliente = idCliente;
     }
@@ -13,7 +13,7 @@ public class Factura {
         return idFactura;
     }
 
-    public Cliente getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 }

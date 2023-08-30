@@ -4,6 +4,7 @@ import Modelo.Cliente;
 import connection.ConnectionFactory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 

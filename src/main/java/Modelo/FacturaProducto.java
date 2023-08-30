@@ -1,11 +1,11 @@
 package Modelo;
 
 public class FacturaProducto {
-    private Factura idFactura;
-    private Producto idProducto;
+    private int idFactura;
+    private int idProducto;
     private int cantidad;
 
-    public FacturaProducto(Factura idFactura, Producto idProducto, int cantidad) {
+    public FacturaProducto(int idFactura, int idProducto, int cantidad) {
         this.idFactura = idFactura;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
@@ -14,11 +14,11 @@ public class FacturaProducto {
         this.cantidad = cantidad;
     }
 
-    public Factura getIdFactura() {
+    public int getIdFactura() {
         return idFactura;
     }
 
-    public Producto getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
