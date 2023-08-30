@@ -29,7 +29,17 @@ public class ClienteDAOImplMySQL implements ClienteDao{
     }
 
     public void insertar(Cliente cliente) {
-        //Codigo para insertar
+        try {
+            String sql ="INSERT INTO Cliente(nombre, email) VALUE (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, cliente.getNombre());
+            preparedStatement.setString(2, cliente.getEmail());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
