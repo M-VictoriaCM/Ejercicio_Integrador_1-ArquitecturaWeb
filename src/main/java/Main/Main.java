@@ -36,7 +36,7 @@ public class Main {
             File archivo = new File("src/main/java/dataset/"+nombreArchivo);
 
             String pathArchivo = archivo.getPath();
-            CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(pathArchivo));
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(pathArchivo));
 
             for(CSVRecord row: parser){
                 //Lleno la tabla depende del archivo pasado
