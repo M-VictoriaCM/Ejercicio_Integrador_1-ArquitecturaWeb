@@ -3,16 +3,16 @@ package connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Connection {
+public class ConnectionFactory  {
         public static final String MYSQL = "mysql";
 
-        private static Connection instance = new Connection();
+        private static ConnectionFactory instance = new ConnectionFactory();
         private java.sql.Connection connection;
 
-        private Connection() {
+        private ConnectionFactory() {
         }
 
-        public static Connection getInstance() {
+        public static ConnectionFactory getInstance() {
             return instance;
         }
 
