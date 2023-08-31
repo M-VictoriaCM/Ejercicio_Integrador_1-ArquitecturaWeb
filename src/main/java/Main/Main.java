@@ -33,6 +33,7 @@ public class Main {
 
         /*~~~~~~~~~~~~~~~~~~~~~~ Filtro ~~~~~~~~~~~~~~~~~~~~*/
         DAOFactory.getFiltro(ConnectionFactory.MYSQL).productoMayorRecaudacionVentas();
+        DAOFactory.getFiltro(ConnectionFactory.MYSQL).listadeClientesPorMayorFacturacion();
     }
 
     private static void cargarDatoCSV(String nombreArchivo, Connection connection) {

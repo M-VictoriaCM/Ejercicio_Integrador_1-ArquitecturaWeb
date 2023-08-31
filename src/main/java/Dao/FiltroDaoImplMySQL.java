@@ -39,4 +39,49 @@ public class FiltroDaoImplMySQL implements FiltroDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void listadeClientesPorMayorFacturacion() {
+        try {
+            String sql = "select c.idCliente, c.nombre,SUM(fp.cantidad*p.valor) AS total_facturado\n" +
+                    "from cliente c \n" +
+                    "inner join factura f \n" +
+                    "on c.idCliente = f.idCliente \n" +
+                    "inner join factura_producto fp \n" +
+                    "on f.idFactura = fp.idFactura\n" +
+                    "inner join producto p \n" +
+                    "on fp.idProducto = p.idProducto\n" +
+                    "GROUP BY c.nombre\n" +
+                    "ORDER BY total_facturado desc\n" +
+                    "limit 10";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int idCliente = resultSet.getInt("c.idCliente");
+                String nombreCliente = resultSet.getString("c.nombre");
+                double totalFacturado = resultSet.getDouble("total_facturado");
+                System.out.println("id Cliente: " + idCliente + ", Nombre del cliente: " + nombreCliente + ", Total Facturado: $" + totalFacturado);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+/* Otra opción:
+* select c.idCliente, c.nombre, fp.cantidad as cantidad_facturada, p.valor as valor_producto, fp.idProducto, f.idFactura
+* from cliente c
+* left join factura as f
+* on c.idCliente = f.idCliente
+* left join factura_producto as fp
+* on f.idFactura = fp.idFactura and
+* f.idCliente = c.idCliente
+* left join producto as p
+* on fp.idProducto = p.idProducto
+* order by cantidad_facturada desc
+* limit 10;
+ */
