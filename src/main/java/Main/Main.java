@@ -33,14 +33,17 @@ public class Main {
         DAOFactory.getFacturaDao(ConnectionFactory.DERBY).crear_tabla();
         DAOFactory.getFacturaProductoDao(ConnectionFactory.DERBY).crear_tabla();*/
 
-         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~*/
+         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~
         cargarDatoCSV("clientes.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("productos.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("facturas.csv", ConnectionFactory.getInstance().connection());
-        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());
+        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());*/
 
         /*~~~~~~~~~~~~~~~~~~~~~~ Filtro ~~~~~~~~~~~~~~~~~~~~*/
+        System.out.println("Producto que mas recaudo");
         DAOFactory.getFiltro(ConnectionFactory.MYSQL).productoMayorRecaudacionVentas();
+        System.out.println("");
+        System.out.println("Lista de clientes ordenada por facturacion");
         DAOFactory.getFiltro(ConnectionFactory.MYSQL).listadeClientesPorMayorFacturacion();
     }
 

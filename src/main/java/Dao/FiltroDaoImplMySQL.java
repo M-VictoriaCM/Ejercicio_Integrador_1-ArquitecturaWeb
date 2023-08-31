@@ -52,8 +52,7 @@ public class FiltroDaoImplMySQL implements FiltroDao {
                     "inner join producto p \n" +
                     "on fp.idProducto = p.idProducto\n" +
                     "GROUP BY c.nombre\n" +
-                    "ORDER BY total_facturado desc\n" +
-                    "limit 10";
+                    "ORDER BY total_facturado desc";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
