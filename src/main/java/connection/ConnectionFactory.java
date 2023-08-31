@@ -5,8 +5,9 @@ import java.sql.SQLException;
 
 public class ConnectionFactory  {
         public static final String MYSQL = "mysql";
+        public static final String DERBY = "derby";
 
-        private static ConnectionFactory instance = new ConnectionFactory();
+    private static ConnectionFactory instance = new ConnectionFactory();
         private java.sql.Connection connection;
 
         private ConnectionFactory() {
@@ -31,6 +32,14 @@ public class ConnectionFactory  {
                 }
             }
 
+            if (type.equals(DERBY)) {
+                try {
+                    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                    this.connection = DriverManager.getConnection("jdbc:derby:integrador2;create=true");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             return this.connection;
         }
 

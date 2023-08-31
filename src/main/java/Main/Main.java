@@ -18,18 +18,26 @@ import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        /*~~~~~~~~~~~~~~~~~~ Creación de las tablas ~~~~~~~~~~~~~~~~~~
+        //depende de la base de datos que se desee utilizar, se debe modificar esta variable
+        //MYSQL o DERBY
+
+        /*~~~~~~~~~~~~~~~~~~ Creación de las tablas MYSQL~~~~~~~~~~~~~~~~~~
         DAOFactory.getClienteDao(ConnectionFactory.MYSQL).crear_tabla();
         DAOFactory.getProductoDao(ConnectionFactory.MYSQL).crear_tabla();
         DAOFactory.getFacturaDao(ConnectionFactory.MYSQL).crear_tabla();
         DAOFactory.getFacturaProductoDao(ConnectionFactory.MYSQL).crear_tabla();*/
 
+        /*~~~~~~~~~~~~~~~~~~ Creación de las tablas DERBY~~~~~~~~~~~~~~~~~~*/
+        /*DAOFactory.getClienteDao(ConnectionFactory.DERBY).crear_tabla();
+        DAOFactory.getProductoDao(ConnectionFactory.DERBY).crear_tabla();
+        DAOFactory.getFacturaDao(ConnectionFactory.DERBY).crear_tabla();
+        DAOFactory.getFacturaProductoDao(ConnectionFactory.DERBY).crear_tabla();*/
 
-         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~
+         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~*/
         cargarDatoCSV("clientes.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("productos.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("facturas.csv", ConnectionFactory.getInstance().connection());
-        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());*/
+        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());
 
         /*~~~~~~~~~~~~~~~~~~~~~~ Filtro ~~~~~~~~~~~~~~~~~~~~*/
         DAOFactory.getFiltro(ConnectionFactory.MYSQL).productoMayorRecaudacionVentas();
@@ -80,7 +88,3 @@ public class Main {
     }
 
 }
-   /* SELECT p.nombre as nombreProducto , SUM(fp.cantidad) * p.valor as cantidadRecaudada from producto p join factura_producto fp on (p.idProducto = fp.idProducto)
-        group by p.nombre
-        order by cantidadRecaudada desc
-        limit 1*/

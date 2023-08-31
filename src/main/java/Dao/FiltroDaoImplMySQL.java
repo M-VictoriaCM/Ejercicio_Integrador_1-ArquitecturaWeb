@@ -71,17 +71,3 @@ public class FiltroDaoImplMySQL implements FiltroDao {
         }
     }
 }
-
-/* Otra opción:
-* select c.idCliente, c.nombre, fp.cantidad as cantidad_facturada, p.valor as valor_producto, fp.idProducto, f.idFactura
-* from cliente c
-* left join factura as f
-* on c.idCliente = f.idCliente
-* left join factura_producto as fp
-* on f.idFactura = fp.idFactura and
-* f.idCliente = c.idCliente
-* left join producto as p
-* on fp.idProducto = p.idProducto
-* order by cantidad_facturada desc
-* limit 10;
- */
