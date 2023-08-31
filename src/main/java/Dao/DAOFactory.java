@@ -43,5 +43,14 @@ public class DAOFactory {
             throw new IllegalArgumentException("El tipo"+type+" no es valido");
         }
     }
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    public static FiltroDao getFiltro(String type){
+        if(type.equals("mysql")){
+            Connection connection =ConnectionFactory.getInstance().connect(ConnectionFactory.MYSQL);
+            return new FiltroDaoImplMySQL(connection);
+        }else{
+            throw new IllegalArgumentException("El tipo"+type+" no es valido");
+        }
+    }
 
 }

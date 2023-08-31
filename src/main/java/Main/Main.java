@@ -1,6 +1,7 @@
 package Main;
 
 import Dao.DAOFactory;
+import Dao.FiltroDaoImplMySQL;
 import Modelo.Cliente;
 import Modelo.Factura;
 import Modelo.FacturaProducto;
@@ -17,18 +18,21 @@ import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        /*~~~~~~~~~~~~~~~~~~ Creación de las tablas ~~~~~~~~~~~~~~~~~~*/
+        /*~~~~~~~~~~~~~~~~~~ Creación de las tablas ~~~~~~~~~~~~~~~~~~
         DAOFactory.getClienteDao(ConnectionFactory.MYSQL).crear_tabla();
         DAOFactory.getProductoDao(ConnectionFactory.MYSQL).crear_tabla();
         DAOFactory.getFacturaDao(ConnectionFactory.MYSQL).crear_tabla();
-        DAOFactory.getFacturaProductoDao(ConnectionFactory.MYSQL).crear_tabla();
+        DAOFactory.getFacturaProductoDao(ConnectionFactory.MYSQL).crear_tabla();*/
 
 
-         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~*/
-         cargarDatoCSV("clientes.csv", ConnectionFactory.getInstance().connection());
+         /*~~~~~~~~~~~~~~~~~~~~~~ Carga de datos ~~~~~~~~~~~~~~~~~~~~
+        cargarDatoCSV("clientes.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("productos.csv", ConnectionFactory.getInstance().connection());
         cargarDatoCSV("facturas.csv", ConnectionFactory.getInstance().connection());
-        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());
+        cargarDatoCSV("facturas-productos.csv", ConnectionFactory.getInstance().connection());*/
+
+        /*~~~~~~~~~~~~~~~~~~~~~~ Filtro ~~~~~~~~~~~~~~~~~~~~*/
+        DAOFactory.getFiltro(ConnectionFactory.MYSQL).productoMayorRecaudacionVentas();
     }
 
     private static void cargarDatoCSV(String nombreArchivo, Connection connection) {
@@ -75,3 +79,7 @@ public class Main {
     }
 
 }
+   /* SELECT p.nombre as nombreProducto , SUM(fp.cantidad) * p.valor as cantidadRecaudada from producto p join factura_producto fp on (p.idProducto = fp.idProducto)
+        group by p.nombre
+        order by cantidadRecaudada desc
+        limit 1*/
