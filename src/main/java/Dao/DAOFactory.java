@@ -7,7 +7,6 @@ import java.sql.Connection;
 public class DAOFactory {
     public DAOFactory() {
     }
-
     public static ClienteDao getClienteDao(String type){
         if(type.equals("mysql")){
             Connection connection =ConnectionFactory.getInstance().connect(ConnectionFactory.MYSQL);
@@ -68,4 +67,9 @@ public class DAOFactory {
         }
     }
 
+    public static void getCrearEsquema(String type) {
+        if(type.equals("mysql")){
+            ConnectionFactory.getInstance().crearEsquema();
+        }
+    }
 }
