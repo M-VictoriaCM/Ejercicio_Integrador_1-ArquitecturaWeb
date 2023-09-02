@@ -33,7 +33,7 @@ public class FacturaProductoDaoImplMySQL implements FacturaProductoDao{
 
     public void insertar(FacturaProducto facturaProducto) {
         try {
-            String sql ="INSERT INTO Factura_Producto(idFactura, idProducto, cantidad) VALUE (?,?,?)";
+            String sql ="INSERT INTO Factura_Producto(idFactura, idProducto, cantidad) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, facturaProducto.getIdFactura());
             preparedStatement.setInt(2, facturaProducto.getIdProducto());

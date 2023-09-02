@@ -2,6 +2,7 @@ package connection;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionFactory  {
         public static final String MYSQL = "mysql";
@@ -24,18 +25,31 @@ public class ConnectionFactory  {
             }
 
             if (type.equals(MYSQL)) {
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/integrador1", "root", "root");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (this.connection==null){
+                    try {
+                        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "root");
+                        Statement statement = connection.createStatement();
+                        String createDatabaseSQL = "CREATE DATABASE integrador1_mysql";
+                        statement.executeUpdate(createDatabaseSQL);
+                        System.out.println("Esquema creado exitosamente.");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/integrador1_mysql", "root", "root");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
 
             if (type.equals(DERBY)) {
                 try {
                     Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                    this.connection = DriverManager.getConnection("jdbc:derby:integrador2;create=true");
+                    this.connection = DriverManager.getConnection("jdbc:derby:integrador1_derby;create=true");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

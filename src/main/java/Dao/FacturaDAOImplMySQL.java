@@ -18,7 +18,7 @@ public class FacturaDAOImplMySQL implements FacturaDao{
         try {
             Statement stmt = this.connection.createStatement();
             String sql = "CREATE TABLE Factura("+
-                        "idFactura INT AUTO_INCREMENT PRIMARY KEY,"+
+                        "idFactura INT PRIMARY KEY,"+
                         "idCliente INT,"+
                         "FOREIGN KEY(idCliente) REFERENCES Cliente(idCliente))";
             stmt.executeUpdate(sql);
@@ -31,9 +31,10 @@ public class FacturaDAOImplMySQL implements FacturaDao{
 
     public void insertar(Factura factura) {
         try {
-            String sql ="INSERT INTO Factura(idCliente) VALUE (?)";
+            String sql ="INSERT INTO Factura(idFactura,idCliente) VALUES (?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, factura.getIdCliente());
+            preparedStatement.setInt(1, factura.getIdFactura());
+            preparedStatement.setInt(2, factura.getIdCliente());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

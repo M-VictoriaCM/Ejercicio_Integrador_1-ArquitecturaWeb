@@ -15,19 +15,19 @@ public class FiltroDaoImplMySQL implements FiltroDao {
     @Override
     public void productoMayorRecaudacionVentas() {
         try {
-            String sql = "SELECT p.nombre as nombreProducto, SUM(fp.cantidad) * p.valor as cantidadRecaudada, p.idProducto" +
+            String sql = "SELECT p.idProducto, p.nombre, SUM(fp.cantidad * p.valor) as cantidadRecaudada" +
                     " FROM producto p" +
                     " JOIN factura_producto fp ON (p.idProducto = fp.idProducto)" +
-                    " GROUP BY p.idProducto" +
-                    " ORDER BY cantidadRecaudada DESC" +
-                    " LIMIT 1";
+                    " GROUP BY p.idProducto, p.nombre" +
+                    " ORDER BY cantidadRecaudada DESC";
+
 
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
-                int idProducto = resultSet.getInt("p.idProducto");
-                String nombreProducto = resultSet.getString("nombreProducto");
+            if (resultSet.next()) {
+                int idProducto = resultSet.getInt("idProducto");
+                String nombreProducto = resultSet.getString("nombre");
                 double cantidadRecaudada = resultSet.getDouble("cantidadRecaudada");
                 System.out.println("id Producto: "+ idProducto+ ", Nombre del Producto: " + nombreProducto + ", Cantidad Recaudada: $" + cantidadRecaudada);
             }
@@ -51,14 +51,14 @@ public class FiltroDaoImplMySQL implements FiltroDao {
                     "on f.idFactura = fp.idFactura\n" +
                     "inner join producto p \n" +
                     "on fp.idProducto = p.idProducto\n" +
-                    "GROUP BY c.nombre\n" +
+                    "GROUP BY c.nombre, c.idCliente\n" +
                     "ORDER BY total_facturado desc";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int idCliente = resultSet.getInt("c.idCliente");
-                String nombreCliente = resultSet.getString("c.nombre");
+                int idCliente = resultSet.getInt("idCliente");
+                String nombreCliente = resultSet.getString("nombre");
                 double totalFacturado = resultSet.getDouble("total_facturado");
                 System.out.println("id Cliente: " + idCliente + ", Nombre del cliente: " + nombreCliente + ", Total Facturado: $" + totalFacturado);
             }

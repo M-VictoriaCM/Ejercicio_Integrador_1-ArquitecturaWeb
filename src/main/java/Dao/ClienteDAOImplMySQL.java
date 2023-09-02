@@ -19,7 +19,7 @@ public class ClienteDAOImplMySQL implements ClienteDao{
         try {
             Statement stmt = this.connection.createStatement();
             String sql = "CREATE TABLE Cliente("+
-                        "idCliente INT AUTO_INCREMENT PRIMARY KEY,"+
+                        "idCliente INT PRIMARY KEY,"+
                         "nombre VARCHAR(255),"+
                         "email VARCHAR(255))";
             stmt.executeUpdate(sql);
@@ -31,10 +31,11 @@ public class ClienteDAOImplMySQL implements ClienteDao{
 
     public void insertar(Cliente cliente) {
         try {
-            String sql ="INSERT INTO Cliente(nombre, email) VALUE (?,?)";
+            String sql ="INSERT INTO Cliente(idCliente,nombre, email) VALUES (?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getEmail());
+            preparedStatement.setInt(1, cliente.getIdCliente());
+            preparedStatement.setString(2, cliente.getNombre());
+            preparedStatement.setString(3, cliente.getEmail());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

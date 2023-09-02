@@ -19,7 +19,7 @@ public class ProductoDAOImplMySQL implements ProductoDao{
         try {
             Statement stmt = this.connection.createStatement();
             String sql = "CREATE TABLE Producto(" +
-                        "idProducto INT AUTO_INCREMENT PRIMARY KEY," +
+                        "idProducto INT PRIMARY KEY," +
                         " nombre VARCHAR(255)," +
                         " valor FLOAT)";
             stmt.executeUpdate(sql);
@@ -31,10 +31,11 @@ public class ProductoDAOImplMySQL implements ProductoDao{
 
     public void insertar(Producto producto) {
         try {
-            String sql ="INSERT INTO Producto(nombre,valor) VALUE (?,?)";
+            String sql ="INSERT INTO Producto(idProducto,nombre,valor) VALUES (?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, producto.getNombre());
-            preparedStatement.setFloat(2, producto.getValor());
+            preparedStatement.setInt(1, producto.getIdProducto());
+            preparedStatement.setString(2, producto.getNombre());
+            preparedStatement.setFloat(3, producto.getValor());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
